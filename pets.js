@@ -1,15 +1,38 @@
-var data = require('./pets.json');
-var fs = require('fs');
-var inputs = process.argv
-// var str = fs.readFileSync(inputs,'utf8');
 
-if (inputs[2] === 'READ') {
-  if (inputs[3]) {
-    console.log(data[inputs[3]]);
-  } else {
-      console.log(data);
+
+var inputs = process.argv;
+var data = require ('./pets.json')
+var fs = require ('fs');
+
+
+if(inputs.length === 2){
+  console.error('Usage: node pets.js [read | create | update | destroy]');
+  process.exit(1);
+}
+else if(inputs[2] === "read"){
+  if(inputs[3]){
+    if(inputs[3] >= 0 && inputs[3]< data.length){
+      console.log(data[inputs[3]])
+    }
+    else{
+      console.error('Usage: node pets.js [read | create | update | destroy]')
+    }
+  }
+  else{
+    console.log(data);
+  }
+}
+else if(inputs[2] === 'create'){
+  if(inputs.length === 6){
+    var newData = data;
+    data.push({age: parseInt(inputs[3]), kind: inputs[4], name: inputs[5]});
+
+    fs.writeFile('./pets.json', JSON.stringify(newData));
+    console.log(data[2]);
+  }
+  else{
+    console.error('Usage: node pets.js create AGE KIND NAME')
+    process.exit(1)
   }
 }
 
-if ()
-process.exit(1);
