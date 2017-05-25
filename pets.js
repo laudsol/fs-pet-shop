@@ -1,7 +1,7 @@
 
 
 var inputs = process.argv;
-var data = require ('./pets.json')
+var data = require ('./pets.json');
 var fs = require ('fs');
 
 
@@ -35,4 +35,24 @@ else if(inputs[2] === 'create'){
     process.exit(1)
   }
 }
+else if(inputs[2] === 'update'){
+  var newData;
+  fs.readFile('./pets.json', 'utf8', function(err, jsonData){
+    newData = JSON.parse(jsonData);
 
+  //console.log(newData)
+
+  if(inputs.length === 7){
+    let index = parseInt(inputs[3]);
+    newData[index].age = inputs[4];
+    newData[index].kind = inputs[5];
+    newData[index].name = inputs[6];
+    fs.writeFile('./pets.json', JSON.stringify(newData));
+    console.log(newData[index])
+  }
+  else{
+    console.error('Usage: node pets.js create AGE KIND NAME')
+    process.exit(1)
+  }
+});
+}
