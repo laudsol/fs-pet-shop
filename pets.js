@@ -40,11 +40,10 @@ else if(inputs[2] === 'update'){
   fs.readFile('./pets.json', 'utf8', function(err, jsonData){
     newData = JSON.parse(jsonData);
 
-  //console.log(newData)
-
   if(inputs.length === 7){
     let index = parseInt(inputs[3]);
-    newData[index].age = inputs[4];
+    var age = parseInt(inputs[4]);
+    newData[index].age = age;
     newData[index].kind = inputs[5];
     newData[index].name = inputs[6];
     fs.writeFile('./pets.json', JSON.stringify(newData));
@@ -55,4 +54,23 @@ else if(inputs[2] === 'update'){
     process.exit(1)
   }
 });
+} else if(inputs[2] === 'delete'){
+  var newData;
+  fs.readFile('./pets.json', 'utf8', function(err, jsonData){
+    newData = JSON.parse(jsonData);
+
+  if(inputs.length === 4){
+    var arr = newData.splice(inputs[3],1);
+    fs.writeFile('./pets.json', JSON.stringify(newData));
+    console.log(arr[0]);
+  }
+  else{
+    console.error('Usage: node pets.js create AGE KIND NAME')
+    process.exit(1)
+  }
+});
+
+} else if (inputs.length === 2) {
+  console.error('Usage: node pets.js create AGE KIND NAME');
+  process.exit(1);
 }
