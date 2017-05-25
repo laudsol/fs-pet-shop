@@ -1,4 +1,5 @@
 
+
 var inputs = process.argv;
 var data = require ('./pets.json')
 var fs = require ('fs');
@@ -35,5 +36,3 @@ else if(inputs[2] === 'create'){
   }
 }
 
-
-//console.log(data)
