@@ -115,10 +115,10 @@ router.delete('/pets/:id', function(req, res){
       data = JSON.parse(bodyJson);
       res.status(200);
       let newData = data;
-      let remove = newData.splice(index,1)
+      let remove = newData.splice(index,1);
       data = newData;
       fs.writeFileSync('./pets.json',JSON.stringify(data));
-      res.json(remove[0])
+      res.json(remove[0]);
     }
   })
 })
